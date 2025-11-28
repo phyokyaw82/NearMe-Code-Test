@@ -1,0 +1,14 @@
+D:\Test\BMS\BMS.Core\bin\Debug\net9.0\BMS.Core.deps.json
+D:\Test\BMS\BMS.Core\bin\Debug\net9.0\BMS.Core.dll
+D:\Test\BMS\BMS.Core\bin\Debug\net9.0\BMS.Core.pdb
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.csproj.AssemblyReference.cache
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.Properties.Resources.resources
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.csproj.GenerateResource.cache
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.AssemblyInfoInputs.cache
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.AssemblyInfo.cs
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.csproj.CoreCompileInputs.cache
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.dll
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\refint\BMS.Core.dll
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.pdb
+D:\Test\BMS\BMS.Core\obj\Debug\net9.0\ref\BMS.Core.dll

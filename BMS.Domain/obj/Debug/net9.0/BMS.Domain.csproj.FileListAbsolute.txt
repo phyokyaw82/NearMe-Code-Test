@@ -1,0 +1,15 @@
+D:\Test\BMS\BMS.Domain\bin\Debug\net9.0\BMS.Domain.deps.json
+D:\Test\BMS\BMS.Domain\bin\Debug\net9.0\BMS.Domain.dll
+D:\Test\BMS\BMS.Domain\bin\Debug\net9.0\BMS.Domain.pdb
+D:\Test\BMS\BMS.Domain\bin\Debug\net9.0\BMS.Core.dll
+D:\Test\BMS\BMS.Domain\bin\Debug\net9.0\BMS.Core.pdb
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.csproj.AssemblyReference.cache
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.AssemblyInfoInputs.cache
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.AssemblyInfo.cs
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.csproj.CoreCompileInputs.cache
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.csproj.Up2Date
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.dll
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\refint\BMS.Domain.dll
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.pdb
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\ref\BMS.Domain.dll
