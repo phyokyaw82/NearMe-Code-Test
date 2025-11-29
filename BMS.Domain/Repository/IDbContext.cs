@@ -1,6 +1,4 @@
-﻿using BMS.Domain.BusinessLogic;
-
-namespace BMS.Domain.Repository;
+﻿namespace BMS.Domain.Repository;
 
 public interface IDbContext
 {
