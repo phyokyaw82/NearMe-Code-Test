@@ -1,6 +1,7 @@
 ﻿using BMS.Api.Validators;
 using BMS.Domain;
 using BMS.Domain.Entity;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BMS.Api.Controllers;
@@ -11,13 +12,16 @@ public class BookController : ControllerBase
 {
     private readonly IDbContext _db;
     private readonly BookValidator _validator;
+    private readonly BookIdValidator _idValidator;
 
     public BookController(
         IDbContext db,
-        BookValidator validator)
+        BookValidator validator,
+        BookIdValidator idValidator)
     {
         _db = db;
         _validator = validator;
+        _idValidator = idValidator;
     }
 
     // GET /api/books
@@ -56,27 +60,22 @@ public class BookController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(string id, BookEntity data, CancellationToken token = default)
     {
-        await _validator.ValidateAsync(data);
+        await _validator.ValidateAsync(data);                 // validate payload
+        await _idValidator.ValidateAndThrowAsync(id, token); // validate ID existence
 
-        var existing = await _db.Book.FindByIdAsync(id, token);
-        if (existing == null)
-            return NotFound($"Book with ID '{id}' not found.");
+        await _db.Book.UpdateByIdAsync(id, data, token);
 
-        await _db.Book.UpdateByIdAsync(id: id, entity: data, token: token);
-
-        return NoContent(); // 204
+        return NoContent();
     }
+
 
     // DELETE /api/books/{id}
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(string id, CancellationToken token = default)
     {
-        var existing = await _db.Book.FindByIdAsync(id, token);
-        if (existing == null)
-            return NotFound($"Book with ID '{id}' not found.");
+        await _idValidator.ValidateAndThrowAsync(id, token);
+        await _db.Book.DeleteByIdAsync(id, token);
 
-        await _db.Book.DeleteByIdAsync(id: id, token: token);
-
-        return NoContent(); // 204
+        return NoContent();
     }
 }

@@ -7,6 +7,7 @@ public class DependencyContainer : DI
     public override void RegisterService(IServiceCollection kernal)
     {
         kernal.AddTransient<BookValidator>();
+        kernal.AddTransient<BookIdValidator>();
     }
 }
 
