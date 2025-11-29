@@ -27,6 +27,7 @@ public abstract class BusinessLogic<TEntity, TDAO>
     {
         try
         {
+            //
             Expression<Func<TEntity, TEntity>> expr = x => entity;
             return await DAO.InsertAsync(selector: expr, token: token);
         }
