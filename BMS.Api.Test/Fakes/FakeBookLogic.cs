@@ -8,7 +8,8 @@ public class FakeBookLogic : IBookLogic
 {
     private readonly List<BookEntity> _books = new();
 
-    public Task<BookEntity> InsertAsync(BookEntity entity, CancellationToken token = default)
+    public Task<BookEntity> InsertAsync(BookEntity entity, 
+        CancellationToken token = default)
     {
         entity.Id = Guid.NewGuid();
         _books.Add(entity);
