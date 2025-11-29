@@ -3,7 +3,6 @@ using BMS.Core.Extensions;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,7 +46,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Interview Code Test for NearMe co.ltd.");
     c.RoutePrefix = string.Empty; // Set Swagger UI at root
 });
 
