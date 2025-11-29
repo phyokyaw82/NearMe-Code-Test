@@ -1,24 +1,8 @@
 [
   {
     "ContainingType": "BMS.Api.Controllers.BookController",
-    "Method": "Delete",
-    "RelativePath": "DELETE/api/books/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "BMS.Api.Controllers.BookController",
-    "Method": "Get",
-    "RelativePath": "GET/api/books",
+    "Method": "GetAll",
+    "RelativePath": "api/books",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -37,34 +21,8 @@
   },
   {
     "ContainingType": "BMS.Api.Controllers.BookController",
-    "Method": "Get",
-    "RelativePath": "GET/api/books/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "BMS.Domain.Entity.BookEntity",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "BMS.Api.Controllers.BookController",
-    "Method": "Post",
-    "RelativePath": "POST/api/books",
+    "Method": "Create",
+    "RelativePath": "api/books",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -89,17 +47,59 @@
   },
   {
     "ContainingType": "BMS.Api.Controllers.BookController",
-    "Method": "Put",
-    "RelativePath": "PUT/api/books/{id}",
+    "Method": "GetById",
+    "RelativePath": "api/books/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "BMS.Domain.Entity.BookEntity",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "BMS.Api.Controllers.BookController",
+    "Method": "Update",
+    "RelativePath": "api/books/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
         "Name": "data",
         "Type": "BMS.Domain.Entity.BookEntity",
         "IsRequired": true
-      },
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BMS.Api.Controllers.BookController",
+    "Method": "Delete",
+    "RelativePath": "api/books/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
         "Name": "id",
         "Type": "System.String",

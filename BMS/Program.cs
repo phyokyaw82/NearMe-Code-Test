@@ -1,3 +1,4 @@
+using BMS.Api.Middleware;
 using BMS.Core.Data;
 using BMS.Core.Extensions;
 using Microsoft.OpenApi.Models;
@@ -5,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddTransient<GlobalExceptionMiddleware>();
 // Add services to the container.
 DaoConfig.Configure(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("BMS"))
@@ -41,7 +42,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
-
+//Global error handling..
+app.UseMiddleware<GlobalExceptionMiddleware>();
 // Enable Swagger middleware
 app.UseSwagger();
 app.UseSwaggerUI(c =>

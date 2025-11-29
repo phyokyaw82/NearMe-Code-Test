@@ -5,104 +5,78 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BMS.Api.Controllers;
 
-//[Route("api/[controller]")]
 [ApiController]
+[Route("api/books")]
 public class BookController : ControllerBase
 {
     private readonly IDbContext _db;
     private readonly BookValidator _validator;
-    public BookController(IDbContext db,
+
+    public BookController(
+        IDbContext db,
         BookValidator validator)
     {
         _db = db;
         _validator = validator;
     }
 
-    [Route("GET/api/books"), HttpGet]
-    public async Task<ActionResult<IEnumerable<BookEntity>>> Get(CancellationToken token = default)
+    // GET /api/books
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<BookEntity>>> GetAll(CancellationToken token = default)
     {
-        try
-        {
-            var result = await _db.Book.FindAsync(token: token);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-
-            return BadRequest(ex.Message);
-        }
+        var result = await _db.Book.FindAsync(token: token);
+        return Ok(result);
     }
 
-    [Route("GET/api/books/{id}"), HttpGet]
-    public async Task<ActionResult<BookEntity>> Get(string id,
-        CancellationToken token = default)
+    // GET /api/books/{id}
+    [HttpGet("{id}")]
+    public async Task<ActionResult<BookEntity>> GetById(string id, CancellationToken token = default)
     {
-        try
-        {
-            var result = await _db.Book.FindByIdAsync(id: id, token: token);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
+        var result = await _db.Book.FindByIdAsync(id: id, token: token);
 
-            return BadRequest(ex.Message);
-        }
+        if (result == null)
+            return NotFound($"Book with ID '{id}' not found.");
+
+        return Ok(result);
     }
 
-    [Route("POST/api/books"), HttpPost]
-    public async Task<ActionResult<BookEntity>> Post(BookEntity data,
-        CancellationToken token = default)
+    // POST /api/books
+    [HttpPost]
+    public async Task<ActionResult<BookEntity>> Create(BookEntity data, CancellationToken token = default)
     {
-        try
-        {
-            await _validator.ValidateAsync(data);
+        await _validator.ValidateAsync(data);
 
-            var result = await _db.Book.InsertAsync(entity: data, token: token);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = await _db.Book.InsertAsync(entity: data, token: token);
+
+        // Return 201 Created with route to GET/{id}
+        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
-    [Route("PUT/api/books/{id}"), HttpPut]
-    public async Task<ActionResult> Put(BookEntity data,
-        string id,
-        CancellationToken token = default)
+    // PUT /api/books/{id}
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Update(string id, BookEntity data, CancellationToken token = default)
     {
-        try
-        {
-            await _validator.ValidateAsync(data);
+        await _validator.ValidateAsync(data);
 
-            await _db.Book.UpdateByIdAsync(
-                id: id,
-                entity: data,
-                token: token);
+        var existing = await _db.Book.FindByIdAsync(id, token);
+        if (existing == null)
+            return NotFound($"Book with ID '{id}' not found.");
 
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        await _db.Book.UpdateByIdAsync(id: id, entity: data, token: token);
+
+        return NoContent(); // 204
     }
 
-    [Route("DELETE/api/books/{id}"), HttpDelete]
-    public async Task<ActionResult> Delete(string id,
-        CancellationToken token = default)
+    // DELETE /api/books/{id}
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(string id, CancellationToken token = default)
     {
-        try
-        {
-            await _db.Book.DeleteByIdAsync(id: id,
-                token: token);
+        var existing = await _db.Book.FindByIdAsync(id, token);
+        if (existing == null)
+            return NotFound($"Book with ID '{id}' not found.");
 
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        await _db.Book.DeleteByIdAsync(id: id, token: token);
+
+        return NoContent(); // 204
     }
 }
-

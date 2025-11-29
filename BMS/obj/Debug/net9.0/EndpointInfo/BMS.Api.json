@@ -6,7 +6,7 @@
     "version": "v1"
   },
   "paths": {
-    "/GET/api/books": {
+    "/api/books": {
       "get": {
         "tags": [
           "Book"
@@ -42,48 +42,7 @@
             }
           }
         }
-      }
-    },
-    "/GET/api/books/{id}": {
-      "get": {
-        "tags": [
-          "Book"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookEntity"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookEntity"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BookEntity"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/POST/api/books": {
+      },
       "post": {
         "tags": [
           "Book"
@@ -136,7 +95,44 @@
         }
       }
     },
-    "/PUT/api/books/{id}": {
+    "/api/books/{id}": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookEntity"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookEntity"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookEntity"
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "Book"
@@ -180,9 +176,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/DELETE/api/books/{id}": {
+      },
       "delete": {
         "tags": [
           "Book"
