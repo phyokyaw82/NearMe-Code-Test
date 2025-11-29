@@ -236,8 +236,6 @@ where TEntity : EntityBase, new()
         return entity;
     }
 
-
-
     private string GetColumnName(PropertyInfo prop)
     {
         var attr = prop.GetCustomAttribute<ColumnAttribute>();
