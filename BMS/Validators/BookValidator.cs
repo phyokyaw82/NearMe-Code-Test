@@ -9,12 +9,12 @@ public class BookValidator : AbstractValidator<BookEntity>
     {
         RuleFor(x => x.Title)
             .NotEmpty()
-            .NotEmpty().WithMessage("Title is required")
+            .WithMessage("Title is required")
             .MaximumLength(200).WithMessage("Title cannot exceed 200 characters");
 
         RuleFor(x => x.Author)
             .NotEmpty()
-            .NotEmpty().WithMessage("Author is required");
+            .WithMessage("Author is required");
 
         RuleFor(x => x.PublishedDate)
             .NotEmpty()
