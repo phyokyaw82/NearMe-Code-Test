@@ -2,8 +2,7 @@
 
 namespace BMS.Core.Data;
 
-public abstract class BusinessLogic<TEntity, TDAO>
-    : IBusinessLogic<TEntity>
+public abstract class BusinessLogic<TEntity, TDAO> : IBusinessLogic<TEntity>
       where TEntity : EntityBase, new()
       where TDAO : DAO<TEntity>
 {
