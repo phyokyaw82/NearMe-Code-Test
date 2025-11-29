@@ -18,7 +18,7 @@ public class BookValidator : AbstractValidator<BookEntity>
 
         RuleFor(x => x.PublishedDate)
             .NotEmpty()
-            .WithMessage("Published date cannot be in the future");
+            .WithMessage("Published date is required");
     }
 }
 
