@@ -33,7 +33,7 @@ public abstract class DAO<TEntity> where TEntity :
         return _executor.ExecuteReaderAsync(sql, parameters, token);
     }
 
-    public async Task<TEntity> InsertAsync(Expression<Func<TEntity, TEntity>> selector,
+    public virtual async Task<TEntity> InsertAsync(Expression<Func<TEntity, TEntity>> selector,
         CancellationToken token = default)
     {
         // Build insert SQL with OUTPUT INSERTED.* to return the inserted row
@@ -46,7 +46,7 @@ public abstract class DAO<TEntity> where TEntity :
         return insertedEntity;
     }
 
-    public async Task<int> UpdateAsync(
+    public virtual async Task<int> UpdateAsync(
         Expression<Func<TEntity, TEntity>> selector,
         Expression<Func<TEntity, bool>> filter,
         CancellationToken token = default)

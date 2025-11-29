@@ -1,14 +1,14 @@
-﻿using BMS.Domain.BusinessLogic;
+﻿using BMS.Domain.Repository;
 
 namespace BMS.Domain;
 
 public class DataContext : IDbContext
 {
-    public DataContext(Book book)
+    public DataContext(IBookLogic book)
     {
         Book = book;
     }
 
-    public Book Book { get; }
+    public IBookLogic Book { get; }
 }
 

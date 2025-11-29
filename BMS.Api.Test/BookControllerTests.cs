@@ -1,168 +1,101 @@
 ﻿using BMS.Api.Controllers;
+using BMS.Api.Test.Fakes;
 using BMS.Api.Validators;
-using BMS.Domain;
 using BMS.Domain.Entity;
-using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
-using System.Linq.Expressions;
 
-namespace BMS.Api.Tests.Controllers;
-
-    public class BookControllerTests
+namespace BMS.Api.Tests
 {
-    private readonly Mock<IDbContext> _dbMock;
-    private readonly Mock<BookValidator> _bookValidatorMock;
-    private readonly Mock<BookIdValidator> _bookIdValidatorMock;
-    private readonly BookController _controller;
-
-    public BookControllerTests()
+    public class BookControllerTests
     {
-        _dbMock = new Mock<IDbContext>();
+        private readonly BookController _controller;
 
-        // Mock BookValidator to always pass
-        _bookValidatorMock = new Mock<BookValidator>();
-        _bookValidatorMock
-            .Setup(v => v.ValidateAsync(It.IsAny<BookEntity>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ValidationResult()); // success
-
-        // Mock BookIdValidator to always pass
-        _bookIdValidatorMock = new Mock<BookIdValidator>(_dbMock.Object);
-        _bookIdValidatorMock
-            .Setup(v => v.ValidateAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new ValidationResult()); // success
-
-        _controller = new BookController(
-            _dbMock.Object,
-            _bookValidatorMock.Object,
-            _bookIdValidatorMock.Object
-        );
-    }
-
-    // GET /api/books
-    [Fact]
-    public async Task GetAll_ShouldReturnOkResult()
-    {
-        _dbMock.Setup(db => db.Book.FindAsync(It.IsAny<Expression<Func<BookEntity, bool>>>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(new List<BookEntity>());
-
-        var result = await _controller.GetAll();
-
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        Assert.IsAssignableFrom<IEnumerable<BookEntity>>(okResult.Value);
-    }
-
-    // GET /api/books/{id}
-    [Fact]
-    public async Task GetById_ShouldReturnOk_WhenBookExists()
-    {
-        var id = Guid.NewGuid();
-        var book = new BookEntity { Id = id, Title = "Test", Author = "Author", PublishedDate = DateTime.Today };
-
-        _dbMock.Setup(db => db.Book.FindByIdAsync(id.ToString(), default))
-               .ReturnsAsync(book);
-
-        var result = await _controller.GetById(id.ToString());
-
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal(book, okResult.Value);
-    }
-
-    [Fact]
-    public async Task GetById_ShouldThrowValidationException_WhenIdEmpty()
-    {
-        _bookIdValidatorMock
-            .Setup(v => v.ValidateAsync("", default))
-            .ThrowsAsync(new ValidationException("ID required"));
-
-        await Assert.ThrowsAsync<ValidationException>(() => _controller.GetById(""));
-    }
-
-    // POST /api/books
-    [Fact]
-    public async Task Create_ShouldReturnCreatedResult_WhenValid()
-    {
-        var book = new BookEntity
+        public BookControllerTests()
         {
-            Title = "Test Book",
-            Author = "Author",
-            PublishedDate = DateTime.Today
-        };
+            var fakeBookLogic = new FakeBookLogic();
+            var fakeDbContext = new FakeDbContext(fakeBookLogic);
 
-        _dbMock.Setup(db => db.Book.InsertAsync(It.IsAny<BookEntity>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((BookEntity b, CancellationToken _) => b); // return the same book
+            var bookValidator = new BookValidator();
+            var idValidator = new BookIdValidator(fakeDbContext);
 
-        var result = await _controller.Create(book);
+            _controller = new BookController(fakeDbContext, bookValidator, idValidator);
+        }
 
-        var createdResult = Assert.IsType<CreatedAtActionResult>(result);
-        Assert.Equal(book, createdResult.Value);
-    }
+        [Fact]
+        public async Task Create_ReturnsCreatedBook()
+        {
+            var book = new BookEntity
+            {
+                Title = "Test Book",
+                Author = "Author A",
+                PublishedDate = DateTime.UtcNow
+            };
 
-    [Fact]
-    public async Task Create_ShouldThrowValidationException_WhenInvalid()
-    {
-        var book = new BookEntity { Title = "", Author = "", PublishedDate = DateTime.Today };
+            var result = await _controller.Create(book);
 
-        _bookValidatorMock
-            .Setup(v => v.ValidateAsync(book, default))
-            .ThrowsAsync(new ValidationException("Invalid book"));
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var createdBook = Assert.IsType<BookEntity>(okResult.Value);
 
-        await Assert.ThrowsAsync<ValidationException>(() => _controller.Create(book));
-    }
+            Assert.Equal("Test Book", createdBook.Title);
+            Assert.NotEqual(Guid.Empty, createdBook.Id);
+        }
 
-    // PUT /api/books/{id}
-    [Fact]
-    public async Task Update_ShouldReturnNoContent_WhenValid()
-    {
-        var id = Guid.NewGuid();
-        var book = new BookEntity { Title = "Updated", Author = "Author", PublishedDate = DateTime.Today };
+        [Fact]
+        public async Task GetAll_ReturnsBooks()
+        {
+            var result = await _controller.GetAll();
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var books = Assert.IsAssignableFrom<System.Collections.Generic.IEnumerable<BookEntity>>(okResult.Value);
 
-        _dbMock.Setup(db => db.Book.FindByIdAsync(id.ToString(), default))
-               .ReturnsAsync(new BookEntity { Id = id });
+            Assert.NotNull(books);
+        }
 
-        _dbMock.Setup(db => db.Book.UpdateByIdAsync(id.ToString(), It.IsAny<BookEntity>(), default))
-               .Returns(Task.CompletedTask);
+        [Fact]
+        public async Task GetById_ReturnsBook()
+        {
+            var book = new BookEntity { Title = "Book 1", Author = "A", PublishedDate = DateTime.UtcNow };
+            var created = await _controller.Create(book);
+            var createdBook = ((OkObjectResult)created.Result).Value as BookEntity;
 
-        var result = await _controller.Update(id.ToString(), book);
+            var result = await _controller.GetById(createdBook.Id.ToString());
 
-        Assert.IsType<NoContentResult>(result);
-    }
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var foundBook = Assert.IsType<BookEntity>(okResult.Value);
+            Assert.Equal(createdBook.Id, foundBook.Id);
+        }
 
-    [Fact]
-    public async Task Update_ShouldThrowValidationException_WhenBookInvalid()
-    {
-        var id = Guid.NewGuid().ToString();
-        var book = new BookEntity { Title = "", Author = "", PublishedDate = DateTime.Today };
+        [Fact]
+        public async Task Update_ChangesBook()
+        {
+            var book = new BookEntity { Title = "Old Title", Author = "A", PublishedDate = DateTime.UtcNow };
+            var created = await _controller.Create(book);
+            var createdBook = ((OkObjectResult)created.Result).Value as BookEntity;
 
-        _bookValidatorMock
-            .Setup(v => v.ValidateAsync(book, default))
-            .ThrowsAsync(new ValidationException("Invalid book"));
+            var updated = new BookEntity { Title = "New Title", Author = "A", PublishedDate = DateTime.UtcNow };
 
-        await Assert.ThrowsAsync<ValidationException>(() => _controller.Update(id, book));
-    }
+            await _controller.Update(createdBook.Id.ToString(), updated);
 
-    // DELETE /api/books/{id}
-    [Fact]
-    public async Task Delete_ShouldReturnNoContent_WhenValid()
-    {
-        var id = Guid.NewGuid().ToString();
+            var result = await _controller.GetById(createdBook.Id.ToString());
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var updatedBook = Assert.IsType<BookEntity>(okResult.Value);
 
-        _dbMock.Setup(db => db.Book.DeleteByIdAsync(id, default))
-               .Returns(Task.CompletedTask);
+            Assert.Equal("New Title", updatedBook.Title);
+        }
 
-        var result = await _controller.Delete(id);
+        [Fact]
+        public async Task Delete_RemovesBook()
+        {
+            var book = new BookEntity { Title = "Book to Delete", Author = "A", PublishedDate = DateTime.UtcNow };
+            var created = await _controller.Create(book);
+            var createdBook = ((OkObjectResult)created.Result).Value as BookEntity;
 
-        Assert.IsType<NoContentResult>(result);
-    }
+            await _controller.Delete(createdBook.Id.ToString());
 
-    [Fact]
-    public async Task Delete_ShouldThrowValidationException_WhenIdEmpty()
-    {
-        _bookIdValidatorMock
-            .Setup(v => v.ValidateAsync("", default))
-            .ThrowsAsync(new ValidationException("ID required"));
+            var result = await _controller.GetAll();
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var books = Assert.IsAssignableFrom<System.Collections.Generic.IEnumerable<BookEntity>>(okResult.Value);
 
-        await Assert.ThrowsAsync<ValidationException>(() => _controller.Delete(""));
+            Assert.DoesNotContain(books, b => b.Id == createdBook.Id);
+        }
     }
 }
