@@ -22,7 +22,7 @@ public abstract class BusinessLogic<TEntity, TDAO>
         return await DAO.FindAsync(filter: filter, token: token);
     }
 
-    public async Task<TEntity?> FindById(string id,
+    public async Task<TEntity?> FindByIdAsync(string id,
       CancellationToken token = default)
     {
         return (await FindAsync(filter: f => f.Id == Guid.Parse(id), token: token)).SingleOrDefault();
@@ -46,7 +46,7 @@ public abstract class BusinessLogic<TEntity, TDAO>
             token: token);
     }
 
-    public async Task UpdateById(string id,
+    public async Task UpdateByIdAsync(string id,
         TEntity entity,
         CancellationToken token = default)
     {

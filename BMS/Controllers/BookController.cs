@@ -39,7 +39,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            var result = await _db.Book.FindById(id: id, token: token);
+            var result = await _db.Book.FindByIdAsync(id: id, token: token);
             return Ok(result);
         }
         catch (Exception ex)
@@ -75,7 +75,7 @@ public class BookController : ControllerBase
         {
             await _validator.ValidateAsync(data);
 
-            await _db.Book.UpdateById(
+            await _db.Book.UpdateByIdAsync(
                 id: id,
                 entity: data,
                 token: token);
