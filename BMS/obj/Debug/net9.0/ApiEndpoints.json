@@ -7,17 +7,7 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[BMS.Domain.Entity.BookEntity, BMS.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "BMS.Api.Controllers.BookController",
@@ -28,7 +18,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "data",
+        "Name": "book",
         "Type": "BMS.Domain.Entity.BookEntity",
         "IsRequired": true
       }
@@ -59,17 +49,7 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "BMS.Domain.Entity.BookEntity",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "BMS.Api.Controllers.BookController",
@@ -85,7 +65,7 @@
         "IsRequired": true
       },
       {
-        "Name": "data",
+        "Name": "book",
         "Type": "BMS.Domain.Entity.BookEntity",
         "IsRequired": true
       }

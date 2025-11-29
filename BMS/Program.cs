@@ -6,12 +6,15 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddTransient<GlobalExceptionMiddleware>();
-// Add services to the container.
+
+// DAO config
 DaoConfig.Configure(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("BMS"))
 );
 
+// BMS services
 builder.Services.AddBms(options =>
 {
     options.AssemblyNames.Add("BMS.Core");
@@ -19,17 +22,18 @@ builder.Services.AddBms(options =>
     options.AssemblyNames.Add("BMS.Api");
 });
 
+// Controllers + Newtonsoft JSON
 builder.Services.AddControllers()
 .AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ContractResolver = new DefaultContractResolver
     {
-        NamingStrategy = new DefaultNamingStrategy() // PascalCase
+        NamingStrategy = new DefaultNamingStrategy()
     };
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 });
 
-// Add Swagger
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -42,20 +46,17 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
-//Global error handling..
+
+// Middleware
 app.UseMiddleware<GlobalExceptionMiddleware>();
-// Enable Swagger middleware
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Interview Code Test for NearMe co.ltd.");
-    c.RoutePrefix = string.Empty; // Set Swagger UI at root
+    c.RoutePrefix = string.Empty;
 });
 
-// Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
