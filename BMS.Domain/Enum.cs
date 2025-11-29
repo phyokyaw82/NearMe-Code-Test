@@ -1,10 +1,10 @@
-﻿namespace BMS.Domain
+﻿namespace BMS.Domain;
+
+public enum BookCategory
 {
-    public enum BookCategory
-    {
-        Horror = 1,
-        ScienceFiction = 2,
-        Romance = 3,
-        Other = 0
-    }
+    Horror = 1,
+    ScienceFiction = 2,
+    Romance = 3,
+    Other = 0
 }
+
