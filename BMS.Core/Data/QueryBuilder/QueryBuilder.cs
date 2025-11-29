@@ -1,6 +1,5 @@
 ﻿using BMS.Core.Data.QueryVisitors;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 
