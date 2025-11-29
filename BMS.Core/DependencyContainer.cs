@@ -1,5 +1,4 @@
-﻿using BMS.Core.Data;
-using BMS.Core.Data.DbExecutor;
+﻿using BMS.Core.Data.DbExecutor;
 using BMS.Core.Data.ParameterParser;
 using BMS.Core.Data.QueryBuilder;
 using Microsoft.Extensions.DependencyInjection;
