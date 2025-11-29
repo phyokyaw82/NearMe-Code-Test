@@ -9,7 +9,7 @@ public class BookValidator : AbstractValidator<BookEntity>
     {
         RuleFor(x => x.Title)
             .NotEmpty()
-            .WithMessage($"Title is required");
+            .WithMessage("Title is required");
 
         RuleFor(x => x.Author)
             .NotEmpty()
