@@ -150,29 +150,6 @@ public class FilterExpressionVistor<TEntity> : BaseQueryExpressionVisitor<TEntit
         return node;
     }
 
-
-    //protected override Expression VisitConstant(ConstantExpression node)
-    //{
-    //    var value = node.Value ?? "NULL";
-
-    //    if (LIKE || NOTLIKE)
-    //    {
-    //        if (STARTWITH)
-    //            WHERE.Append(value + "%");
-    //        else if (ENDWITH)
-    //            WHERE.Append("%" + value);
-    //        else
-    //            WHERE.Append("%" + value + "%");
-
-    //        LIKE = false;
-    //        NOTLIKE = false;
-    //    }
-    //    else
-    //        WHERE.Append(value);
-
-    //    return node;
-    //}
-
     /// <summary>
     /// To read member variable node especially in LHS eg. MyName="name" .
     /// </summary>
