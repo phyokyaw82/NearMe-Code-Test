@@ -25,8 +25,7 @@ public abstract class BusinessLogic<TEntity, TDAO>
     public async Task<TEntity> InsertAsync(TEntity entity,
         CancellationToken token = default)
     {
-        //entity.Id = Guid.NewGuid();
-       
+        entity.Id = Guid.NewGuid();
         Expression<Func<TEntity, TEntity>> expr = x => entity;
         return await DAO.InsertAsync(selector: expr, token: token);
     }
