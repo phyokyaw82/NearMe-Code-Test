@@ -1,5 +1,4 @@
 ﻿using System.Data.Common;
-using System.Linq.Expressions;
 
 namespace BMS.Core.Data.DbExecutor;
 
