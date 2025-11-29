@@ -1,4 +1,6 @@
-﻿namespace BMS.Core;
+﻿using BMS.Core.Extensions;
+
+namespace BMS.Core;
 
 public class Guard
 {

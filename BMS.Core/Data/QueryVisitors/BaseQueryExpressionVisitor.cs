@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using BMS.Core.Extensions;
+using System.Linq.Expressions;
 
 namespace BMS.Core.Data.QueryVisitors;
 

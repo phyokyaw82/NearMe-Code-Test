@@ -1,4 +1,6 @@
-﻿namespace BMS.Core.Data.QueryVisitors;
+﻿using BMS.Core.Extensions;
+
+namespace BMS.Core.Data.QueryVisitors;
 
 public class DbParameterAnnotation
 {
