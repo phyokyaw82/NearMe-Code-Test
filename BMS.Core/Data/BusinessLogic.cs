@@ -22,6 +22,12 @@ public abstract class BusinessLogic<TEntity, TDAO>
         return await DAO.FindAsync(filter: filter, token: token);
     }
 
+    public async Task<TEntity?> FindById(string id,
+      CancellationToken token = default)
+    {
+        return (await FindAsync(filter: f => f.Id == Guid.Parse(id), token: token)).SingleOrDefault();
+    }
+
     public async Task<TEntity> InsertAsync(TEntity entity,
         CancellationToken token = default)
     {
@@ -40,10 +46,26 @@ public abstract class BusinessLogic<TEntity, TDAO>
             token: token);
     }
 
+    public async Task UpdateById(string id,
+        TEntity entity,
+        CancellationToken token = default)
+    {
+        await UpdateAsync(entity: entity,
+            filter: f => f.Id == Guid.Parse(id),
+            token: token);
+    }
+
     public async Task DeleteAsync(Expression<Func<TEntity, bool>> filter,
        CancellationToken token = default)
     {
         await DAO.DeleteAsync(filter: filter,
+            token: token);
+    }
+
+    public async Task DeleteByIdAsync(string id,
+        CancellationToken token = default)
+    {
+        await DeleteAsync(filter: x => x.Id == Guid.Parse(id),
             token: token);
     }
 }

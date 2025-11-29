@@ -1,5 +1,6 @@
 ﻿using BMS.Core.Data.QueryVisitors;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -69,6 +70,11 @@ public class QueryBuilder<TEntity> : IQueryBuilder<TEntity> where TEntity : Enti
 
         foreach (var item in writer.FieldCollection)
         {
+            if (item.FieldName == "Id")
+            {
+                continue;
+            } // Skip Id field in update set clause
+
             setList.Add($"{item.FieldName}={item.Parameter}");
         }
 

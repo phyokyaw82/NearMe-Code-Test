@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace BMS.Core.Extensions;
 
-public static class Extensions
+public static class ServiceCollectionExtensions
 {
     public static void AddBms(this IServiceCollection @this,
             Action<BmsConfigurationOptions> configureOptions)
@@ -48,3 +48,4 @@ public static class Extensions
         }
     }
 }
+

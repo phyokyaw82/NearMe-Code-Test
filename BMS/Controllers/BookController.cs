@@ -39,7 +39,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            var result = await _db.Book.FindAsync(filter: f => f.Id == Guid.Parse(id), token: token);
+            var result = await _db.Book.FindById(id: id, token: token);
             return Ok(result);
         }
         catch (Exception ex)
@@ -68,14 +68,16 @@ public class BookController : ControllerBase
 
     [Route("PUT/api/books/{id}"), HttpPut]
     public async Task<ActionResult> Put(BookEntity data,
+        string id,
         CancellationToken token = default)
     {
         try
         {
             await _validator.ValidateAsync(data);
 
-            await _db.Book.UpdateAsync(entity: data,
-                filter: f => f.Id == data.Id,
+            await _db.Book.UpdateById(
+                id: id,
+                entity: data,
                 token: token);
 
             return Ok();
@@ -92,7 +94,7 @@ public class BookController : ControllerBase
     {
         try
         {
-            await _db.Book.DeleteAsync(filter: f => f.Id == Guid.Parse(id),
+            await _db.Book.DeleteByIdAsync(id: id,
                 token: token);
 
             return Ok();
