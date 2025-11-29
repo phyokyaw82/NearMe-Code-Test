@@ -12,4 +12,3 @@ D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.dll
 D:\Test\BMS\BMS.Core\obj\Debug\net9.0\refint\BMS.Core.dll
 D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.pdb
 D:\Test\BMS\BMS.Core\obj\Debug\net9.0\ref\BMS.Core.dll
-D:\Test\BMS\BMS.Core\obj\Debug\net9.0\BMS.Core.sourcelink.json

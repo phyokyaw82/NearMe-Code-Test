@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BMS.Api.Controllers;
 
+//[Route("api/[controller]")]
 [ApiController]
 public class BookController : ControllerBase
 {

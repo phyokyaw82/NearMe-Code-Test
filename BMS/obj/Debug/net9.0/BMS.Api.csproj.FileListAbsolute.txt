@@ -104,4 +104,3 @@ D:\Test\BMS\BMS\obj\Debug\net9.0\BMS.Api.pdb
 D:\Test\BMS\BMS\obj\Debug\net9.0\BMS.Api.genruntimeconfig.cache
 D:\Test\BMS\BMS\obj\Debug\net9.0\ref\BMS.Api.dll
 D:\Test\BMS\BMS\bin\Debug\net9.0\FluentValidation.dll
-D:\Test\BMS\BMS\obj\Debug\net9.0\BMS.Api.sourcelink.json
