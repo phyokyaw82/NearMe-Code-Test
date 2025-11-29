@@ -1,6 +1,6 @@
 ﻿using BMS.Api.Validators;
-using BMS.Domain;
 using BMS.Domain.Entity;
+using BMS.Domain.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BMS.Api.Controllers;

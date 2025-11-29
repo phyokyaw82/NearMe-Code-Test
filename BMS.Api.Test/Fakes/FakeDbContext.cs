@@ -1,5 +1,4 @@
-﻿using BMS.Domain;
-using BMS.Domain.Repository;
+﻿using BMS.Domain.Repository;
 
 namespace BMS.Api.Test.Fakes;
 

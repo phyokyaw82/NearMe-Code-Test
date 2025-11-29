@@ -1,4 +1,4 @@
-﻿using BMS.Domain;
+﻿using BMS.Domain.Repository;
 using FluentValidation;
 
 namespace BMS.Api.Validators;
