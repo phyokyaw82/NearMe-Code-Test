@@ -18,7 +18,7 @@ public class WriterExpressionVisitor<TEntity> : BaseQueryExpressionVisitor<TEnti
     /// <summary>
     /// Runtime field collection.
     /// </summary>
-    public ICollection<string> FieldCollection { get; set; } = new List<string>();
+    public ICollection<(string FieldName, string Parameter)> FieldCollection { get; set; } = new List<(string FieldName, string Parameter)>();
 
     /// <summary>
     /// To transalate Lambda method.
@@ -36,7 +36,7 @@ public class WriterExpressionVisitor<TEntity> : BaseQueryExpressionVisitor<TEnti
             
             dy.GetType().GetProperties().Each(x =>
             {
-                FieldCollection.Add(x.Name + "=" + $"{DbParameterAnnotation.ConverTo(x.GetValue(dy))}");
+                FieldCollection.Add((x.Name, $"{DbParameterAnnotation.ConverTo(x.GetValue(dy))}"));
             });
         }
         return node;
@@ -49,7 +49,7 @@ public class WriterExpressionVisitor<TEntity> : BaseQueryExpressionVisitor<TEnti
     /// <returns></returns>
     protected override Expression VisitConstant(ConstantExpression node)
     {
-        FieldCollection.Add(_memberName + "=" + $"{DbParameterAnnotation.ConverTo(node.Value)}");
+        FieldCollection.Add((_memberName, $"{DbParameterAnnotation.ConverTo(node.Value)}"));
         return node;
     }
 

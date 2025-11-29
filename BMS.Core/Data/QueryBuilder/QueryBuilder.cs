@@ -46,9 +46,8 @@ public class QueryBuilder<TEntity> : IQueryBuilder<TEntity> where TEntity : Enti
 
         foreach (var item in writer.FieldCollection)
         {
-            var tokens = item.Split('=');
-            fields.Add(tokens[0]);
-            values.Add(tokens[1]);  // already SQL literal processed
+            fields.Add(item.FieldName);
+            values.Add(item.Parameter);  // already SQL literal processed
         }
 
         // If outputInserted is true, add OUTPUT INSERTED.* to capture inserted row
@@ -70,9 +69,7 @@ public class QueryBuilder<TEntity> : IQueryBuilder<TEntity> where TEntity : Enti
 
         foreach (var item in writer.FieldCollection)
         {
-            // item looks like: FieldName='Value'
-            var tokens = item.Split('=');
-            setList.Add($"{tokens[0]} = {tokens[1]}");
+            setList.Add($"{item.FieldName}={item.Parameter}");
         }
 
         string where = "";

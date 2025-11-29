@@ -222,8 +222,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
-            "readOnly": true
+            "format": "uuid"
           },
           "title": {
             "type": "string",

@@ -13,3 +13,4 @@ D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.dll
 D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\refint\BMS.Domain.dll
 D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.pdb
 D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\ref\BMS.Domain.dll
+D:\Test\BMS\BMS.Domain\obj\Debug\net9.0\BMS.Domain.sourcelink.json
