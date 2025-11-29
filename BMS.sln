@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{3B119CA3-D60E-44AA-B6C7-16CA7A6D35BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMS.Api.Test", "BMS.Api.Test\BMS.Api.Test.csproj", "{8541D872-48E4-4812-8056-FEDE9D3DDBA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{F52626CA-FB77-4CE6-AE46-0BD8A7F1170C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F52626CA-FB77-4CE6-AE46-0BD8A7F1170C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F52626CA-FB77-4CE6-AE46-0BD8A7F1170C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8541D872-48E4-4812-8056-FEDE9D3DDBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8541D872-48E4-4812-8056-FEDE9D3DDBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8541D872-48E4-4812-8056-FEDE9D3DDBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8541D872-48E4-4812-8056-FEDE9D3DDBA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
